@@ -1,0 +1,46 @@
+.hr-claim-item {
+  margin-bottom: 20px;
+}
+
+.hr-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--light-gray);
+}
+
+.export-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.accounts-claim-item {
+  margin-bottom: 20px;
+}
+
+.accounts-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--light-gray);
+}
+
+@media (max-width: 768px) {
+  .hr-actions,
+  .accounts-actions {
+    flex-direction: column;
+  }
+
+  .hr-actions button,
+  .accounts-actions button {
+    width: 100%;
+  }
+
+  .export-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+}

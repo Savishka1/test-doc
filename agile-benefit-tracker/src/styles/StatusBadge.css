@@ -1,0 +1,29 @@
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-submitted {
+  background-color: var(--gray);
+  color: var(--white);
+}
+
+.status-approved {
+  background-color: var(--success-green);
+  color: var(--white);
+}
+
+.status-rejected {
+  background-color: var(--primary-red);
+  color: var(--white);
+}
+
+.status-paid {
+  background-color: var(--info-blue);
+  color: var(--white);
+}
