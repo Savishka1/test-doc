@@ -26,14 +26,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (username: string, password: string) => {
     if (config.USE_MOCK_DATA) {
-      // Mock login - find user from mock data
-      const { mockUsers } = await import('../data/mockData');
-      const mockUser = mockUsers.find((u) => u.email === email);
+      // Mock login - find user by username and verify password
+      const { mockUsers, mockPasswords } = await import('../data/mockData');
+      const mockUser = mockUsers.find((u) => u.username === username);
       
       if (!mockUser) {
-        throw new Error('User not found');
+        throw new Error('Invalid username or password');
+      }
+      
+      // Verify password
+      if (mockPasswords[username] !== password) {
+        throw new Error('Invalid username or password');
       }
       
       localStorage.setItem('authToken', 'mock-token');
@@ -42,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       // Real API login
       try {
-        const response = await api.post('/auth/login', { email, password });
+        const response = await api.post('/auth/login', { username, password });
         const { token, user: userData } = response.data;
         
         localStorage.setItem('authToken', token);

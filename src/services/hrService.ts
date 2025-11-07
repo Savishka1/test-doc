@@ -4,10 +4,11 @@ import { getPendingClaims as getMockPendingClaims, mockClaims } from '../data/mo
 import { config } from '../config/config';
 
 export const hrService = {
-  // Get all pending claims
+  // Get all claims for HR (not just pending)
   getPendingClaims: async (): Promise<Claim[]> => {
     if (config.USE_MOCK_DATA) {
-      return Promise.resolve(getMockPendingClaims());
+      // Return all claims so HR can filter by status
+      return Promise.resolve(mockClaims);
     }
     const response = await api.get('/hr/claims/pending');
     return response.data;

@@ -9,6 +9,8 @@ import { HRDashboard } from './pages/HRDashboard';
 import { AccountsDashboard } from './pages/AccountsDashboard';
 import { ClaimForm } from './pages/ClaimForm';
 import { ClaimDetails } from './pages/ClaimDetails';
+import { UserManagement } from './pages/UserManagement';
+import { ChangePassword } from './pages/ChangePassword';
 import './styles/theme.css';
 
 function AppRoutes() {
@@ -29,6 +31,7 @@ function AppRoutes() {
             <Route path="/employee" element={<EmployeeDashboard />} />
             <Route path="/claim/new" element={<ClaimForm />} />
             <Route path="/claim/:id" element={<ClaimDetails />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="*" element={<Navigate to="/employee" replace />} />
           </>
         )}
@@ -36,6 +39,9 @@ function AppRoutes() {
         {user?.role === 'HR' && (
           <>
             <Route path="/hr" element={<HRDashboard />} />
+            <Route path="/claim/:id" element={<ClaimDetails />} />
+            <Route path="/users" element={<UserManagement />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="*" element={<Navigate to="/hr" replace />} />
           </>
         )}
@@ -43,7 +49,16 @@ function AppRoutes() {
         {user?.role === 'Accounts' && (
           <>
             <Route path="/accounts" element={<AccountsDashboard />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="*" element={<Navigate to="/accounts" replace />} />
+          </>
+        )}
+
+        {user?.role === 'SuperAdmin' && (
+          <>
+            <Route path="/users" element={<UserManagement />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="*" element={<Navigate to="/users" replace />} />
           </>
         )}
 

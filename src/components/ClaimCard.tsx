@@ -6,9 +6,10 @@ import '../styles/ClaimCard.css';
 
 interface ClaimCardProps {
   claim: Claim;
+  hideViewButton?: boolean;
 }
 
-export const ClaimCard = ({ claim }: ClaimCardProps) => {
+export const ClaimCard = ({ claim, hideViewButton = false }: ClaimCardProps) => {
   return (
     <div className="claim-card" data-testid="claim-card">
       <div className="claim-card-header">
@@ -32,13 +33,15 @@ export const ClaimCard = ({ claim }: ClaimCardProps) => {
 
       <div className="claim-card-footer">
         <span className="claim-id">ID: {claim.id}</span>
-        <Link
-          to={`/claim/${claim.id}`}
-          className="btn btn-secondary"
-          data-testid="view-claim-button"
-        >
-          View Details
-        </Link>
+        {!hideViewButton && (
+          <Link
+            to={`/claim/${claim.id}`}
+            className="btn btn-secondary"
+            data-testid="view-claim-button"
+          >
+            View Details
+          </Link>
+        )}
       </div>
     </div>
   );

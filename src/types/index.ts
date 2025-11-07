@@ -2,14 +2,17 @@ export type ClaimType = 'OPD' | 'Wellness';
 
 export type ClaimStatus = 'Submitted' | 'Approved' | 'Rejected' | 'Auto-Rejected' | 'Paid';
 
-export type UserRole = 'Employee' | 'HR' | 'Accounts';
+export type UserRole = 'Employee' | 'HR' | 'Accounts' | 'SuperAdmin';
 
 export interface User {
   id: string;
   name: string;
   email: string;
+  username: string;
   role: UserRole;
   employeeId: string;
+  createdAt?: string;
+  isActive?: boolean;
 }
 
 export interface Claim {

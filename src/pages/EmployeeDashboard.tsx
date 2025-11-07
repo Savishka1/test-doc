@@ -12,6 +12,10 @@ export const EmployeeDashboard = () => {
   const [balance, setBalance] = useState<ClaimBalance | null>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [appliedStartDate, setAppliedStartDate] = useState<string>('');
+  const [appliedEndDate, setAppliedEndDate] = useState<string>('');
   const { addNotification } = useNotification();
 
   useEffect(() => {
@@ -34,9 +38,42 @@ export const EmployeeDashboard = () => {
     }
   };
 
+  const handleApplyFilters = () => {
+    setAppliedStartDate(startDate);
+    setAppliedEndDate(endDate);
+  };
+
+  const handleClearFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    setAppliedStartDate('');
+    setAppliedEndDate('');
+    setFilter('all');
+  };
+
   const filteredClaims = claims.filter((claim) => {
-    if (filter === 'all') return true;
-    return claim.status.toLowerCase() === filter.toLowerCase();
+    // Status filter
+    if (filter !== 'all' && claim.status.toLowerCase() !== filter.toLowerCase()) {
+      return false;
+    }
+
+    // Date range filter
+    if (appliedStartDate || appliedEndDate) {
+      const claimDate = new Date(claim.date);
+      
+      if (appliedStartDate) {
+        const start = new Date(appliedStartDate);
+        if (claimDate < start) return false;
+      }
+      
+      if (appliedEndDate) {
+        const end = new Date(appliedEndDate);
+        end.setHours(23, 59, 59, 999); // Include the entire end date
+        if (claimDate > end) return false;
+      }
+    }
+
+    return true;
   });
 
   if (loading) {
@@ -74,8 +111,49 @@ export const EmployeeDashboard = () => {
         </div>
       )}
 
-      <div className="card">
-        <div className="filter-bar">
+      {/* Filters Section */}
+      <div className="filters-section">
+        <div className="date-filters">
+          <div className="date-input-group">
+            <label htmlFor="start-date">From Date:</label>
+            <input
+              type="date"
+              id="start-date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="date-input"
+              data-testid="start-date"
+            />
+          </div>
+          <div className="date-input-group">
+            <label htmlFor="end-date">To Date:</label>
+            <input
+              type="date"
+              id="end-date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="date-input"
+              data-testid="end-date"
+            />
+          </div>
+          <div className="filter-action-buttons">
+            <button
+              className="btn btn-primary"
+              onClick={handleApplyFilters}
+              data-testid="apply-filters"
+            >
+              Apply Filters
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={handleClearFilters}
+              data-testid="clear-filters"
+            >
+              Clear Filters
+            </button>
+          </div>
+        </div>
+        <div className="filter-buttons">
           <button
             className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
@@ -112,7 +190,9 @@ export const EmployeeDashboard = () => {
             Paid
           </button>
         </div>
+      </div>
 
+      <div className="card">
         <div className="claims-list">
           {filteredClaims.length === 0 ? (
             <p className="no-claims">No claims found</p>

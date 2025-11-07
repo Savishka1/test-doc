@@ -1,29 +1,56 @@
 import type { Claim, ClaimBalance, User } from '../types';
 
-// Mock users for testing
+// Mock users for testing (passwords stored in mockPasswords)
 export const mockUsers: User[] = [
+  {
+    id: '0',
+    name: 'Super Admin',
+    email: 'admin@zone24x7.com',
+    username: 'admin',
+    role: 'SuperAdmin',
+    employeeId: 'ADMIN',
+    createdAt: '2024-01-01T00:00:00Z',
+    isActive: true,
+  },
   {
     id: '1',
     name: 'John Doe',
     email: 'john.employee@zone24x7.com',
+    username: 'john.doe',
     role: 'Employee',
     employeeId: 'EMP001',
+    createdAt: '2024-01-15T00:00:00Z',
+    isActive: true,
   },
   {
     id: '2',
     name: 'Sarah HR',
     email: 'sarah.hr@zone24x7.com',
+    username: 'sarah.hr',
     role: 'HR',
     employeeId: 'HR001',
+    createdAt: '2024-01-15T00:00:00Z',
+    isActive: true,
   },
   {
     id: '3',
     name: 'Mike Accounts',
     email: 'mike.accounts@zone24x7.com',
+    username: 'mike.accounts',
     role: 'Accounts',
     employeeId: 'ACC001',
+    createdAt: '2024-01-15T00:00:00Z',
+    isActive: true,
   },
 ];
+
+// Mock passwords (in real app, these would be hashed in backend)
+export const mockPasswords: Record<string, string> = {
+  'admin': 'admin',
+  'john.doe': 'password123',
+  'sarah.hr': 'password123',
+  'mike.accounts': 'password123',
+};
 
 // Mock claims data
 export const mockClaims: Claim[] = [
@@ -118,7 +145,7 @@ export const getPendingClaims = (): Claim[] => {
   return mockClaims.filter((claim) => claim.status === 'Submitted');
 };
 
-// Helper to get approved claims for Accounts
+// Helper to get approved claims for Accounts (includes both Approved and Paid)
 export const getApprovedClaims = (): Claim[] => {
-  return mockClaims.filter((claim) => claim.status === 'Approved');
+  return mockClaims.filter((claim) => claim.status === 'Approved' || claim.status === 'Paid');
 };

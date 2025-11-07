@@ -13,8 +13,9 @@ The application is currently running in **Mock Data Mode** - no backend required
 ### 1. Test as Employee
 
 **Login:**
-- Select: **John Doe (Employee)**
-- Click: **Login as Employee**
+- Username: **john.doe**
+- Password: **password123**
+- Click: **Login**
 
 **What to Test:**
 ✅ **View Dashboard**
@@ -55,8 +56,9 @@ The application is currently running in **Mock Data Mode** - no backend required
 ### 2. Test as HR
 
 **Login:**
-- Select: **Sarah HR (HR)**
-- Click: **Login as HR**
+- Username: **sarah.hr**
+- Password: **password123**
+- Click: **Login**
 
 **What to Test:**
 ✅ **View Pending Claims**
@@ -90,8 +92,28 @@ The application is currently running in **Mock Data Mode** - no backend required
 ### 3. Test as Accounts
 
 **Login:**
-- Select: **Mike Accounts (Accounts)**
-- Click: **Login as Accounts**
+- Username: **mike.accounts**
+- Password: **password123**
+- Click: **Login**
+
+### 4. Test as SuperAdmin
+
+**Login:**
+- Username: **admin**
+- Password: **admin**
+- Click: **Login**
+
+**What to Test:**
+✅ **User Management**
+- View all users in the system
+- Add new users (Employee, HR, Accounts)
+- Edit existing users
+- Deactivate users (cannot deactivate SuperAdmin)
+- All user CRUD operations
+
+✅ **Change Password**
+- Access password change page
+- Update SuperAdmin password
 
 **What to Test:**
 ✅ **View Approved Claims**
@@ -185,10 +207,11 @@ The application is currently running in **Mock Data Mode** - no backend required
 
 ## Mock Data Reference
 
-### Users
-1. **John Doe** - Employee (john.employee@zone24x7.com)
-2. **Sarah HR** - HR (sarah.hr@zone24x7.com)
-3. **Mike Accounts** - Accounts (mike.accounts@zone24x7.com)
+### Users (Username / Password)
+1. **Super Admin** - SuperAdmin (admin / admin)
+2. **John Doe** - Employee (john.doe / password123)
+3. **Sarah HR** - HR (sarah.hr / password123)
+4. **Mike Accounts** - Accounts (mike.accounts / password123)
 
 ### Sample Claims
 - **CLM001** - OPD, Paid, LKR 5,000
